@@ -64,12 +64,24 @@ public class FragmentSignIn extends Fragment {
 
         // Hide the BottomNavigationView in this fragment
         bottomNavigationView.setVisibility(View.GONE);
+
         Button login = view.findViewById(R.id.buttonLogIn);
+        Button signUp = view.findViewById(R.id.buttonSignUp);
+
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (fragmentInteractionListener != null) {
                     fragmentInteractionListener.navigateToFragmentHome();
+                }
+            }
+        });
+
+        signUp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (fragmentInteractionListener != null) {
+                    fragmentInteractionListener.navigateToFragmentSignUp();
                 }
             }
         });

@@ -7,6 +7,9 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -14,6 +17,8 @@ import android.view.ViewGroup;
  * create an instance of this fragment.
  */
 public class FragmentSignUp extends Fragment {
+
+    FragmentInteractionListener fragmentInteractionListener;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -49,6 +54,11 @@ public class FragmentSignUp extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (getActivity() instanceof FragmentInteractionListener) {
+            fragmentInteractionListener = (FragmentInteractionListener) getActivity();
+        } else {
+            throw new RuntimeException(getActivity().toString() + " must implement FragmentInteractionListener");
+        }
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
@@ -59,6 +69,24 @@ public class FragmentSignUp extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_signup, container, false);
+
+        View view = inflater.inflate(R.layout.fragment_signup, container, false);
+        MainActivity mainActivity = (MainActivity) requireActivity();
+        BottomNavigationView bottomNavigationView = mainActivity.getBottomNavigationView();
+
+        // Hide the BottomNavigationView in this fragment
+        bottomNavigationView.setVisibility(View.GONE);
+
+        Button submit = view.findViewById(R.id.buttonSubmit);
+        submit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (fragmentInteractionListener != null) {
+                    fragmentInteractionListener.navigateToFragmentSignIn();
+                }
+            }
+        });
+
+        return view;
     }
 }

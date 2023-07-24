@@ -12,6 +12,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 public class MainActivity extends AppCompatActivity implements FragmentInteractionListener{
     FragmentHome home_fragment;
     FragmentSignIn sign_in_fragment;
+    FragmentSignUp sign_up_fragment;
     BottomNavigationView bottomNavigationView;
 
     @Override
@@ -20,6 +21,7 @@ public class MainActivity extends AppCompatActivity implements FragmentInteracti
         setContentView(R.layout.activity_main);
 
          sign_in_fragment = new FragmentSignIn();
+         sign_up_fragment = new FragmentSignUp();
          home_fragment = new FragmentHome();
 
         bottomNavigationView = findViewById(R.id.bottomNavigationView);
@@ -60,6 +62,18 @@ public class MainActivity extends AppCompatActivity implements FragmentInteracti
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.fragmentContainer, home_fragment)
                 //.addToBackStack(null) // Optional: This enables the back button to go back to FragmentA
+                .commit();
+    }
+    @Override
+    public void navigateToFragmentSignUp() {
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.fragmentContainer, sign_up_fragment)
+                .commit();
+    }
+    @Override
+    public void navigateToFragmentSignIn() {
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.fragmentContainer, sign_in_fragment)
                 .commit();
     }
 }
