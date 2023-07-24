@@ -10,6 +10,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+
 public class FragmentSignIn extends Fragment {
 
     private FragmentInteractionListener fragmentInteractionListener;
@@ -57,6 +59,11 @@ public class FragmentSignIn extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_sign_in, container, false);
+        MainActivity mainActivity = (MainActivity) requireActivity();
+        BottomNavigationView bottomNavigationView = mainActivity.getBottomNavigationView();
+
+        // Hide the BottomNavigationView in this fragment
+        bottomNavigationView.setVisibility(View.GONE);
         Button login = view.findViewById(R.id.buttonLogIn);
         login.setOnClickListener(new View.OnClickListener() {
             @Override
