@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "956352557022",
+    "project_id": "nkswta",
+    "storage_bucket": "nkswta.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:956352557022:android:821cd8734b93734e5d774f",
+        "android_client_info": {
+          "package_name": "com.www.nkswta"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "956352557022-i632d7f7tgvu89ialqrar5i0hi9013se.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDUgyY4ArT_JFfIQ8Go4sKNn6Qe9lEN1QY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "956352557022-fu4lhop7bkr0d1nvete1m7cgnpkv9nse.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

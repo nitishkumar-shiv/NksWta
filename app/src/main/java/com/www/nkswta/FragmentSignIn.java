@@ -1,20 +1,21 @@
 package com.www.nkswta;
 
 import android.os.Bundle;
-
 import androidx.fragment.app.Fragment;
-
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-
+import android.widget.EditText;
+import android.widget.Toast;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class FragmentSignIn extends Fragment {
 
     private FragmentInteractionListener fragmentInteractionListener;
+    FirebaseAuth firebaseAuth;
 
 
     // TODO: Rename parameter arguments, choose names that match
@@ -67,12 +68,34 @@ public class FragmentSignIn extends Fragment {
 
         Button login = view.findViewById(R.id.buttonLogIn);
         Button signUp = view.findViewById(R.id.buttonSignUp);
+        EditText Email = view.findViewById(R.id.editTextTextEmailAddress);
+        EditText Password = view.findViewById(R.id.editTextTextPassword);
 
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (fragmentInteractionListener != null) {
-                    fragmentInteractionListener.navigateToFragmentHome();
+
+                    firebaseAuth = FirebaseAuth.getInstance();
+                    String email = Email.getText().toString() ;
+                    String password = Password.getText().toString();
+
+                    if(!email.isEmpty() &&  !password.isEmpty()) {
+
+                        firebaseAuth.signInWithEmailAndPassword(email, password)
+                                .addOnCompleteListener(getActivity(), task -> {
+                                    if (task.isSuccessful()) {
+                                        Toast.makeText(getActivity(), "Login successfully.", Toast.LENGTH_SHORT).show();
+                                        fragmentInteractionListener.navigateToFragmentHome();
+                                        FirebaseUser user = firebaseAuth.getCurrentUser();
+                                        // Do something with the user if needed
+                                    } else {
+                                        Toast.makeText(getActivity(), "Login failed. Please check your credentials.", Toast.LENGTH_SHORT).show();
+                                    }
+                                });
+                    } else {
+                        Toast.makeText(getActivity(), "Email and Password should not be empty", Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
         });
