@@ -37,12 +37,13 @@
                         app:cardCornerRadius="40dp"
                         app:layout_constraintBottom_toTopOf="@+id/textView2"
                         app:layout_constraintEnd_toStartOf="@+id/userName"
-                        app:layout_constraintStart_toStartOf="parent">
+                        app:layout_constraintStart_toStartOf="parent"
+                        android:backgroundTint="@color/purple25">
 
                         <ImageView
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:src="@drawable/logo" />
+                            android:src="@drawable/ic_baseline_person_pin_24" />
                     </androidx.cardview.widget.CardView>
 
                     <TextView
