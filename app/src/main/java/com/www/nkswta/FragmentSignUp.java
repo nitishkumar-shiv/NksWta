@@ -83,31 +83,30 @@ public class FragmentSignUp extends Fragment {
                     String confirmPassword = ConfirmPassword.getText().toString().trim();;
 
 
-                    if (password.equals(confirmPassword)) {
-
-                        firebaseAuth.createUserWithEmailAndPassword(email, password)
-                                .addOnCompleteListener(getActivity(), task -> {
-                                    if (task.isSuccessful()) {
-                                        // User registration success
-                                        Toast.makeText(getActivity(), "Signup Success.", Toast.LENGTH_SHORT).show();
-                                        fragmentInteractionListener.navigateToFragmentSignIn();
-                                        FirebaseUser user = firebaseAuth.getCurrentUser();
-                                        // Do something with the user if needed
-                                    } else {
-                                        // User registration failed
-                                        Toast.makeText(getActivity(), "Signup failed. Please try again.", Toast.LENGTH_SHORT).show();
-                                    }
-                                });
+                    if ( !email.isEmpty() && !password.isEmpty() && !confirmPassword.isEmpty()) {
+                        if (password.equals(confirmPassword)) {
+                            firebaseAuth.createUserWithEmailAndPassword(email, password)
+                                    .addOnCompleteListener(getActivity(), task -> {
+                                        if (task.isSuccessful()) {
+                                            // User registration success
+                                            Toast.makeText(getActivity(), "Signup Success.", Toast.LENGTH_SHORT).show();
+                                            fragmentInteractionListener.navigateToFragmentSignIn();
+                                            FirebaseUser user = firebaseAuth.getCurrentUser();
+                                            // Do something with the user if needed
+                                        } else {
+                                            // User registration failed
+                                            Toast.makeText(getActivity(), "Signup failed. Please try again.", Toast.LENGTH_SHORT).show();
+                                        }
+                                    });
+                        } else {
+                            Toast.makeText(getActivity(), "password mismatch.", Toast.LENGTH_SHORT).show();
+                        }
                     } else {
-                        Toast.makeText(getActivity(), "password mismatch.", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), "provide necessary details.", Toast.LENGTH_SHORT).show();
                     }
-
-
-
                 }
             }
         });
-
         return view;
     }
 }
