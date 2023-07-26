@@ -3,6 +3,9 @@ package com.www.nkswta;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -16,6 +19,9 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 public class FragmentHome extends Fragment {
 
     FragmentInteractionListener fragmentInteractionListener;
+    RecyclerView recyclerViewFragmentHome;
+    ModalClass[] MyListData;
+    CustomAdaptor adaptor;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -54,13 +60,51 @@ public class FragmentHome extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         MainActivity mainActivity = (MainActivity) requireActivity();
         BottomNavigationView bottomNavigationView = mainActivity.getBottomNavigationView();
 
         // Hide the BottomNavigationView in this fragment
         bottomNavigationView.setVisibility(View.VISIBLE);
+
+        recyclerViewFragmentHome = view.findViewById(R.id.recyclerViewFragmentHome);
+        MyListData = new ModalClass[]{
+                new ModalClass("MT-64","Android","High","Bug",50),
+                new ModalClass("MT-65","Android","High","Bug",10),
+                new ModalClass("MT-66","Android","High","Bug",60),
+                new ModalClass("MT-67","Android","High","Bug",70),
+                new ModalClass("MT-68","Android","High","Bug",80),
+                new ModalClass("MT-69","Android","High","Bug",90),
+                new ModalClass("MT-70","Android","High","Bug",30),
+                new ModalClass("MT-71","Android","High","Bug",40),
+                new ModalClass("MT-72","Android","High","Bug",60),
+                new ModalClass("MT-73","Android","High","Bug",50),
+                new ModalClass("MT-64","Android","High","Bug",50),
+                new ModalClass("MT-65","Android","High","Bug",10),
+                new ModalClass("MT-66","Android","High","Bug",60),
+                new ModalClass("MT-67","Android","High","Bug",70),
+                new ModalClass("MT-68","Android","High","Bug",80),
+                new ModalClass("MT-69","Android","High","Bug",90),
+                new ModalClass("MT-70","Android","High","Bug",30),
+                new ModalClass("MT-71","Android","High","Bug",40),
+                new ModalClass("MT-72","Android","High","Bug",60),
+                new ModalClass("MT-73","Android","High","Bug",50),
+                new ModalClass("MT-64","Android","High","Bug",50),
+                new ModalClass("MT-65","Android","High","Bug",10),
+                new ModalClass("MT-66","Android","High","Bug",60),
+                new ModalClass("MT-67","Android","High","Bug",70),
+                new ModalClass("MT-68","Android","High","Bug",80),
+                new ModalClass("MT-69","Android","High","Bug",90),
+                new ModalClass("MT-70","Android","High","Bug",30),
+                new ModalClass("MT-71","Android","High","Bug",40),
+                new ModalClass("MT-72","Android","High","Bug",60),
+                new ModalClass("MT-73","Android","High","Bug",50),
+        };
+
+        adaptor = new CustomAdaptor(MyListData);
+        recyclerViewFragmentHome.setHasFixedSize(true);
+        recyclerViewFragmentHome.setLayoutManager(new GridLayoutManager(getContext(),2));
+        recyclerViewFragmentHome.setAdapter(adaptor);
 
         return view;
     }
