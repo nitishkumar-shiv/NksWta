@@ -38,14 +38,15 @@
                 app:layout_constraintHorizontal_bias="0.314"
                 app:layout_constraintStart_toEndOf="@+id/progressBar" />
 
-            <ProgressBar
+            <com.google.android.material.progressindicator.CircularProgressIndicator
                 android:id="@+id/progressBar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="15dp"
                 android:layout_marginBottom="20dp"
-                android:progress="0"
+                android:progress="10"
                 android:max="100"
+                app:trackColor="@color/cream"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/taskID"
                 app:layout_constraintStart_toStartOf="parent" />
