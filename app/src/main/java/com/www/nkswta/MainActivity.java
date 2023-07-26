@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity implements FragmentInteracti
                 selectFragment(FragmentReports.newInstance("param1","param2"));
                 return true;
             case R.id.notification:
-                selectFragment(FragmentNotification.newInstance("param1","param2"));
+                selectFragment(FragmentTask.newInstance("param1","param2"));
                 return true;
             // Handle other menu items as needed
         }

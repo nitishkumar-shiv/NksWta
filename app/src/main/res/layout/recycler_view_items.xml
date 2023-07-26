@@ -44,6 +44,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="15dp"
                 android:layout_marginBottom="20dp"
+                android:progress="0"
+                android:max="100"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/taskID"
                 app:layout_constraintStart_toStartOf="parent" />

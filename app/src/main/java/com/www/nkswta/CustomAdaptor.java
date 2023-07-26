@@ -53,7 +53,7 @@ public class CustomAdaptor extends RecyclerView.Adapter<CustomAdaptor.MyViewHold
         holder.taskTitle.setText(listData[position].getTaskTitle());
         holder.priority.setText(listData[position].getPriority());
         holder.taskType.setText(listData[position].getTaskType());
-        holder.progress.setProgress(listData[position].getProgress(),true);
+        holder.progress.setProgress(listData[position].getProgress());
 
     }
 
