@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".FragmentTask">
+    tools:context=".FragmentTask"
+    android:background="@color/cream">
 
     <!-- TODO: Update blank fragment layout -->
 
@@ -16,18 +17,133 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
-
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/fragmentTaskConstraintLayout"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-            <EditText
-                android:id="@+id/fragmentTaskTaskID"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                />
-        </androidx.constraintlayout.widget.ConstraintLayout>
+        android:id="@+id/fragmentTaskConstraintLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="5dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:layout_editor_absoluteY="-64dp">
 
+        <TextView
+            android:id="@+id/fragmentTaskHeading"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="5dp"
+            android:text="[Create/Update your Task]"
+            android:textColor="@color/purple25"
+            android:textSize="30sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <EditText
+            android:id="@+id/fragmentTaskTaskID"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="5dp"
+            android:hint="TicketNo MT-68"
+            android:lines="1"
+            android:text=""
+            android:textColor="@color/purple25"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/fragmentTaskHeading" />
+
+
+        <EditText
+            android:id="@+id/fragmentTaskTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="5dp"
+            android:hint="Title: "
+            android:text=""
+            android:textColor="@color/purple25"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/fragmentTaskTaskID" />
+
+        <EditText
+            android:id="@+id/fragmentTaskPriority"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="5dp"
+            android:hint="Priority"
+            android:text=""
+            android:textSize="20dp"
+            android:textColor="@color/purple25"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/fragmentTaskTitle" />
+
+        <EditText
+            android:id="@+id/fragmentTaskType"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="5dp"
+            android:hint="Task Type"
+            android:textColor="@color/purple25"
+            android:textSize="20dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/fragmentTaskPriority" />
+
+        <EditText
+            android:id="@+id/fragmentTaskPercentage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="5dp"
+            android:hint="completion percentage"
+            android:text=""
+            android:textColor="@color/purple25"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/fragmentTaskType" />
+
+        <TextView
+            android:id="@+id/fragmentTaskLocation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="5dp"
+            android:text=""
+            android:textColor="@color/purple25"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/fragmentTaskPercentage" />
+
+        <Button
+            android:id="@+id/fragmentTaskCrete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Create"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/fragmentTaskLocation"
+            app:layout_constraintVertical_bias="0.0" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
