@@ -15,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -24,6 +25,7 @@ public class FragmentHome extends Fragment {
 
     FragmentInteractionListener fragmentInteractionListener;
     RecyclerView recyclerViewFragmentHome;
+    TextView user_name;
     ModalClass[] MyListData;
     CustomAdaptor adaptor;
     SharedPreferences sharedPreferences;
@@ -72,13 +74,15 @@ public class FragmentHome extends Fragment {
 
         // Hide the BottomNavigationView in this fragment
         bottomNavigationView.setVisibility(View.VISIBLE);
+        recyclerViewFragmentHome = view.findViewById(R.id.recyclerViewFragmentHome);
+        user_name = view.findViewById(R.id.header_userName);
 
         sharedPreferences = getActivity().getSharedPreferences("Nks_sharedPref", MODE_PRIVATE);
         userName = sharedPreferences.getString("name","");
-        Log.d("userName", "onCreateView: "+userName);
+        if(!userName.isEmpty()) {
+            user_name.setText("Hi"+" "+userName+"!");
+        }
 
-
-        recyclerViewFragmentHome = view.findViewById(R.id.recyclerViewFragmentHome);
         MyListData = new ModalClass[]{
                 new ModalClass("MT-64","Android","High","Bug",50),
                 new ModalClass("MT-65","Android","High","Bug",10),
