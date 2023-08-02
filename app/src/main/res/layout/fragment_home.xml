@@ -8,7 +8,8 @@
         tools:context=".FragmentHome"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/fragmentHome">
+        android:id="@+id/fragmentHome"
+        android:background="@color/cream">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewFragmentHome"

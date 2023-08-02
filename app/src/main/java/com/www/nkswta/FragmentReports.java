@@ -27,17 +27,14 @@ import com.www.nkswta.db.TaskInformationDataBase;
 import com.www.nkswta.db.entity.TaskInfo;
 
 import java.util.ArrayList;
+import java.util.List;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link FragmentReports#newInstance} factory method to
- * create an instance of this fragment.
- */
+
 public class FragmentReports extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     private TaskInformationDataBase taskInformationDataBase;
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
@@ -49,14 +46,7 @@ public class FragmentReports extends Fragment {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment FragmentReports.
-     */
+
     // TODO: Rename and change types and number of parameters
     public static FragmentReports newInstance(String param1, String param2) {
         FragmentReports fragment = new FragmentReports();
@@ -89,8 +79,6 @@ public class FragmentReports extends Fragment {
                 getContext(),
                 TaskInformationDataBase.class,
                 "TaskInfoDB").allowMainThreadQueries().build();
-        taskInformationDataBase.getTaskInfoDAO().addTaskInfo(new TaskInfo("MT-64","Android","High","Bug",50));
-        Log.d("tagdb", "onCreateView: "+taskInformationDataBase.getTaskInfoDAO().getAllTasksInfo());
         getTaskReportBarChart(barChart);
         getTaskReportPieChart(pieChart);
 
@@ -98,8 +86,14 @@ public class FragmentReports extends Fragment {
     }
 
     public  void getTaskReportBarChart(BarChart barChart){
-        int[] data = {50, 80, 120, 40, 90,100,50,30,15,0};
-        String[] labels = {"Label 1", "Label 2", "Label 3", "Label 4", "Label 5","m1","m2","m3","m4","m5"};
+        int length = taskInformationDataBase.getTaskInfoDAO().getAllTasksInfo().size();
+        int[] data = new int[length];
+        String[] labels = new String[length];
+
+        for(int i=0;i<length;i++) {
+            data[i] = taskInformationDataBase.getTaskInfoDAO().getAllTasksInfo().get(i).getProgress();
+            labels[i] = taskInformationDataBase.getTaskInfoDAO().getAllTasksInfo().get(i).getTaskID();
+        }
 
         ArrayList<BarEntry> entries = new ArrayList<>();
         for (int i = 0; i < data.length; i++) {
@@ -130,10 +124,34 @@ public class FragmentReports extends Fragment {
     }
 
     public void getTaskReportPieChart(PieChart pieChart){
+        int length = taskInformationDataBase.getTaskInfoDAO().getAllTasksInfo().size();
+        int[] data = new int[length];
+
+        for(int i=0;i<length;i++) {
+            data[i] = taskInformationDataBase.getTaskInfoDAO().getAllTasksInfo().get(i).getProgress();
+        }
+
+        Float task_in_todo=0f, task_in_progress=0f, task_in_done=0f;
+        for(int i=0;i<length;i++) {
+            if(data[i]==0){
+                task_in_todo++;
+            }
+            else if (data[i]==100) {
+                task_in_done++;
+            }
+            else {
+                task_in_progress++;
+            }
+        }
+        task_in_done = (float)(task_in_done/length)*100;
+        task_in_todo = (float)(task_in_todo/length)*100;
+        task_in_progress = (float)(task_in_progress/length)*100;
+        Log.d("TAG2", "getTaskReportPieChart: "+task_in_todo+" "+task_in_done+" "+task_in_progress);
+
         ArrayList<PieEntry> entries = new ArrayList<>();
-        entries.add(new PieEntry(40f, "TODO"));
-        entries.add(new PieEntry(25f, "INPROGRESS"));
-        entries.add(new PieEntry(35f, "D0NE"));
+        entries.add(new PieEntry(task_in_todo, "TODO"));
+        entries.add(new PieEntry(task_in_progress, "INPROGRESS"));
+        entries.add(new PieEntry(task_in_done, "D0NE"));
 
         PieDataSet dataSet = new PieDataSet(entries, "Pie Chart Example");
         dataSet.setColors(Color.RED, Color.BLUE, Color.GREEN);
