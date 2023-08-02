@@ -7,14 +7,30 @@
     tools:context=".FragmentReports">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
+
+
+    <com.github.mikephil.charting.charts.BarChart
+        android:id="@+id/barChartView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Generate work report"
-        android:textSize="60sp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_height="351dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"/>
 
+    <View
+        android:id="@+id/divider"
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:backgroundTint="@color/purple25"
+        android:background="?android:attr/listDivider"
+        app:layout_constraintBottom_toTopOf="@+id/pieChartView"
+        app:layout_constraintTop_toBottomOf="@+id/barChartView" />
+
+    <com.github.mikephil.charting.charts.PieChart
+        android:id="@+id/pieChartView"
+        android:layout_width="401dp"
+        android:layout_height="351dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity implements FragmentInteracti
         bottomNavigationView.setOnNavigationItemSelectedListener(this::onNavigationItemSelected);
 
         if (savedInstanceState == null) {
-            selectFragment(FragmentSignIn.newInstance("param1","param2"));
+            selectFragment(FragmentHome.newInstance("param1","param2"));
         }
     }
 
