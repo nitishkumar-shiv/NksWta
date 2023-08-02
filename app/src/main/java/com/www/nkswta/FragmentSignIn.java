@@ -2,8 +2,14 @@ package com.www.nkswta;
 
 import static android.content.Context.MODE_PRIVATE;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
+
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -75,6 +81,8 @@ public class FragmentSignIn extends Fragment {
         EditText Email = view.findViewById(R.id.editTextTextEmailAddress);
         EditText Password = view.findViewById(R.id.editTextTextPassword);
 
+        createNotificationChannel();
+
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -94,7 +102,7 @@ public class FragmentSignIn extends Fragment {
                                         SharedPreferences.Editor editor = sharedPreferences.edit();
                                         editor.putBoolean("logIn",true);
                                         editor.commit();
-
+                                        onLoginSuccess();
                                         Toast.makeText(getActivity(), "Login successfully.", Toast.LENGTH_SHORT).show();
                                         fragmentInteractionListener.navigateToFragmentHome();
                                         FirebaseUser user = firebaseAuth.getCurrentUser();
@@ -120,4 +128,33 @@ public class FragmentSignIn extends Fragment {
         });
         return view;
     }
+    // Create the notification channel
+    private void createNotificationChannel() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            String channelId = "default_channel";
+            String channelName = "Default Channel";
+            String channelDescription = "Default Channel for app notifications";
+            int importance = NotificationManager.IMPORTANCE_DEFAULT;
+
+            NotificationChannel channel = new NotificationChannel(channelId, channelName, importance);
+            channel.setDescription(channelDescription);
+
+            NotificationManager notificationManager = getActivity().getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(channel);
+        }
+    }
+    // This method is called when the login is successful
+    private void onLoginSuccess() {
+        // Create and show the notification
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(getActivity(), "default_channel")
+                .setSmallIcon(R.drawable.ic_baseline_add_task_24)
+                .setContentTitle("Login Successful")
+                .setContentText("You have successfully logged in.")
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT);
+
+        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(getActivity());
+        notificationManager.notify(/*notificationId*/ 1, builder.build());
+    }
+
+
 }
