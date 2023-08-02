@@ -1,5 +1,8 @@
 package com.www.nkswta;
 
+import static android.content.Context.MODE_PRIVATE;
+
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -12,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -22,6 +26,8 @@ public class FragmentHome extends Fragment {
     RecyclerView recyclerViewFragmentHome;
     ModalClass[] MyListData;
     CustomAdaptor adaptor;
+    SharedPreferences sharedPreferences;
+    String userName;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -66,6 +72,11 @@ public class FragmentHome extends Fragment {
 
         // Hide the BottomNavigationView in this fragment
         bottomNavigationView.setVisibility(View.VISIBLE);
+
+        sharedPreferences = getActivity().getSharedPreferences("Nks_sharedPref", MODE_PRIVATE);
+        userName = sharedPreferences.getString("name","");
+        Log.d("userName", "onCreateView: "+userName);
+
 
         recyclerViewFragmentHome = view.findViewById(R.id.recyclerViewFragmentHome);
         MyListData = new ModalClass[]{

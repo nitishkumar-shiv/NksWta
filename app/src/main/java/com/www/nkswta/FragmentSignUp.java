@@ -1,5 +1,9 @@
 package com.www.nkswta;
 
+import static android.content.Context.MODE_PRIVATE;
+
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
@@ -18,6 +22,7 @@ public class FragmentSignUp extends Fragment {
     FirebaseAuth firebaseAuth;
     EditText Name, Email, Password, ConfirmPassword;
     Button submit;
+    SharedPreferences sharedPreferences;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -78,17 +83,23 @@ public class FragmentSignUp extends Fragment {
             public void onClick(View view) {
                 if (fragmentInteractionListener != null) {
                     firebaseAuth = FirebaseAuth.getInstance();
+                    String name = Name.getText().toString();
                     String email = Email.getText().toString();
                     String password = Password.getText().toString().trim();;
                     String confirmPassword = ConfirmPassword.getText().toString().trim();;
 
 
-                    if ( !email.isEmpty() && !password.isEmpty() && !confirmPassword.isEmpty()) {
+                    if ( !email.isEmpty() && !password.isEmpty() && !confirmPassword.isEmpty() && !name.isEmpty()) {
                         if (password.equals(confirmPassword)) {
                             firebaseAuth.createUserWithEmailAndPassword(email, password)
                                     .addOnCompleteListener(getActivity(), task -> {
                                         if (task.isSuccessful()) {
                                             // User registration success
+                                            sharedPreferences = getActivity().getSharedPreferences("Nks_sharedPref", MODE_PRIVATE);
+                                            SharedPreferences.Editor editor = sharedPreferences.edit();
+                                            editor.putString("name",name);
+                                            editor.commit();
+
                                             Toast.makeText(getActivity(), "Signup Success.", Toast.LENGTH_SHORT).show();
                                             fragmentInteractionListener.navigateToFragmentSignIn();
                                             FirebaseUser user = firebaseAuth.getCurrentUser();

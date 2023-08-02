@@ -4,7 +4,9 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -14,6 +16,8 @@ public class MainActivity extends AppCompatActivity implements FragmentInteracti
     FragmentSignIn sign_in_fragment;
     FragmentSignUp sign_up_fragment;
     BottomNavigationView bottomNavigationView;
+    SharedPreferences sharedPreferences;
+    Boolean logIn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,9 +31,16 @@ public class MainActivity extends AppCompatActivity implements FragmentInteracti
         bottomNavigationView = findViewById(R.id.bottomNavigationView);
         bottomNavigationView.setOnNavigationItemSelectedListener(this::onNavigationItemSelected);
 
-        if (savedInstanceState == null) {
-            selectFragment(FragmentHome.newInstance("param1","param2"));
+        sharedPreferences = getSharedPreferences("Nks_sharedPref", MODE_PRIVATE);
+        logIn = sharedPreferences.getBoolean("logIn",false);
+
+        if(logIn) {
+            selectFragment(FragmentHome.newInstance("param1", "param2"));
         }
+        else {
+            selectFragment(FragmentSignIn.newInstance("param1", "param2"));
+        }
+
     }
 
     private boolean onNavigationItemSelected(@NonNull MenuItem item) {

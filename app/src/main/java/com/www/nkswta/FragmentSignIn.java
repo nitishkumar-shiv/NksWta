@@ -1,5 +1,8 @@
 package com.www.nkswta;
 
+import static android.content.Context.MODE_PRIVATE;
+
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
@@ -16,6 +19,7 @@ public class FragmentSignIn extends Fragment {
 
     private FragmentInteractionListener fragmentInteractionListener;
     FirebaseAuth firebaseAuth;
+    SharedPreferences sharedPreferences;
 
 
     // TODO: Rename parameter arguments, choose names that match
@@ -85,6 +89,12 @@ public class FragmentSignIn extends Fragment {
                         firebaseAuth.signInWithEmailAndPassword(email, password)
                                 .addOnCompleteListener(getActivity(), task -> {
                                     if (task.isSuccessful()) {
+
+                                        sharedPreferences = getActivity().getSharedPreferences("Nks_sharedPref", MODE_PRIVATE);
+                                        SharedPreferences.Editor editor = sharedPreferences.edit();
+                                        editor.putBoolean("logIn",true);
+                                        editor.commit();
+
                                         Toast.makeText(getActivity(), "Login successfully.", Toast.LENGTH_SHORT).show();
                                         fragmentInteractionListener.navigateToFragmentHome();
                                         FirebaseUser user = firebaseAuth.getCurrentUser();
