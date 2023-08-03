@@ -132,6 +132,16 @@
                 app:layout_constraintTop_toBottomOf="@id/editableCardSeekBar"
                 android:layout_marginTop="20dp"
                 android:layout_marginBottom="10dp"/>
+            <Button
+                android:id="@+id/editableCardConfirmButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Confirm"
+                app:layout_constraintEnd_toEndOf="@id/editableModalInnerConstraintLayout"
+                app:layout_constraintStart_toStartOf="@id/editableModalInnerConstraintLayout"
+                app:layout_constraintTop_toBottomOf="@id/editableCardLocationText"
+                app:layout_constraintBottom_toBottomOf="@id/editableModalInnerConstraintLayout"
+                android:layout_marginVertical="20dp"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>
 
