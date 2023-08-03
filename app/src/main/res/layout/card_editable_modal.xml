@@ -36,7 +36,8 @@
                 app:layout_constraintTop_toTopOf="@id/editableModalInnerConstraintLayout"
                 app:layout_constraintEnd_toEndOf="@id/editableModalInnerConstraintLayout"
                 app:layout_constraintStart_toEndOf="@id/editableModalTitleText"
-                android:layout_marginHorizontal="20dp" />
+                android:layout_marginHorizontal="20dp"
+                android:inputType="text"/>
 
             <TextView
                 android:id="@+id/editableModalPriorityText"
@@ -67,21 +68,23 @@
 
             <EditText
                 android:id="@+id/editableModalPriorityEditText"
-                android:layout_width="wrap_content"
+                android:layout_width="120dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:text="High"
                 android:textColor="@color/purple25"
                 android:textSize="20sp"
+                android:inputType="text"
                 app:layout_constraintStart_toStartOf="@+id/editableModalPriorityText"
                 app:layout_constraintTop_toBottomOf="@id/editableModalPriorityText" />
 
             <EditText
                 android:id="@+id/editableModalTypeEditText"
-                android:layout_width="wrap_content"
+                android:layout_width="120dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:text="Analysis"
+                android:inputType="text"
                 android:textColor="@color/purple25"
                 android:textSize="20sp"
                 app:layout_constraintStart_toStartOf="@+id/editableModalTypeText"
