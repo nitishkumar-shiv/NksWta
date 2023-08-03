@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- res/drawable/custom_seekbar_thumb.xml -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Set the size of the thumb here -->
+    <size android:width="40dp"
+        android:height="40dp" />
+    <solid android:color="#FF0000" />
+    <corners android:radius="20dp" />
+</shape>

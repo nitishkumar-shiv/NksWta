@@ -5,16 +5,15 @@ import static android.content.Context.MODE_PRIVATE;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -58,6 +57,11 @@ public class FragmentHome extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (getActivity() instanceof FragmentInteractionListener) {
+            fragmentInteractionListener = (FragmentInteractionListener) getActivity();
+        } else {
+            throw new RuntimeException(getActivity().toString() + " must implement FragmentInteractionListener");
+        }
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
@@ -116,11 +120,29 @@ public class FragmentHome extends Fragment {
                 new ModalClass("MT-73","Android","High","Bug",50),
         };
 
-        adaptor = new CustomAdaptor(MyListData);
+        adaptor = new CustomAdaptor(MyListData, new CustomAdaptor.OnItemClickListener(){
+            @Override
+            public void onItemClick(int position) {
+                    // Handle the click event for each card item here
+                Log.d("itemClick", "onItemClick: ");
+                Toast.makeText(getActivity(), "Clicked on item " + (position + 1), Toast.LENGTH_SHORT).show();
+                showAlertDialogButtonClicked();
+            }
+        });
         recyclerViewFragmentHome.setHasFixedSize(true);
         recyclerViewFragmentHome.setLayoutManager(new GridLayoutManager(getContext(),2));
         recyclerViewFragmentHome.setAdapter(adaptor);
 
         return view;
+    }
+    public void showAlertDialogButtonClicked() {
+        // Create an alert builder
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+//
+        final View customLayout = getLayoutInflater().inflate(R.layout.card_editable_modal, null);
+        builder.setView(customLayout);
+        AlertDialog dialog = builder.create();
+
+        dialog.show();
     }
 }

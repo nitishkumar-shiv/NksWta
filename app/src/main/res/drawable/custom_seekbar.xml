@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- res/drawable/custom_seekbar_progress.xml -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Background layer -->
+    <item android:id="@android:id/background">
+        <shape>
+            <!-- Set the thickness (height) of the background bar here -->
+            <size android:height="8dp" />
+            <corners android:radius="50dp"/>
+            <solid android:color="#CCCCCC" />
+        </shape>
+    </item>
+
+    <!-- Progress layer -->
+    <item android:id="@android:id/progress">
+        <clip>
+            <shape>
+                <!-- Set the thickness (height) of the progress bar here -->
+                <size android:height="16dp" />
+                <corners android:radius="50dp"/>
+                <solid android:color="#FF0000" />
+            </shape>
+        </clip>
+    </item>
+
+</layer-list>

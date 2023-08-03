@@ -9,19 +9,28 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class CustomAdaptor extends RecyclerView.Adapter<CustomAdaptor.MyViewHolder> {
     private ModalClass[] listData;
+    private OnItemClickListener clickListener;
+    FragmentHome fragmentHome;
 
-    public CustomAdaptor(ModalClass[] listData) {
+    public interface OnItemClickListener {
+        void onItemClick(int position);
+    }
+
+    public CustomAdaptor(ModalClass[] listData, OnItemClickListener clickListener) {
         this.listData = listData;
+        this.clickListener = clickListener;
     }
 
 
     public static class MyViewHolder extends RecyclerView.ViewHolder{
         public TextView taskID, taskTitle, priority, taskType;
         public ProgressBar progress;
+        public CardView itemCard;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -31,6 +40,7 @@ public class CustomAdaptor extends RecyclerView.Adapter<CustomAdaptor.MyViewHold
             this.priority = itemView.findViewById(R.id.priority);
             this.taskType = itemView.findViewById(R.id.taskType);
             this.progress = itemView.findViewById(R.id.progressBar);
+            this.itemCard =itemView.findViewById(R.id.taskItemCard);
 
         }
     }
@@ -47,13 +57,23 @@ public class CustomAdaptor extends RecyclerView.Adapter<CustomAdaptor.MyViewHold
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
-    public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull MyViewHolder holder,int position) {
         final ModalClass myListData = listData[position];
         holder.taskID.setText(listData[position].getTaskID());
         holder.taskTitle.setText(listData[position].getTaskTitle());
         holder.priority.setText(listData[position].getPriority());
         holder.taskType.setText(listData[position].getTaskType());
         holder.progress.setProgress(listData[position].getProgress(),true);
+
+        holder.itemCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int adapterPosition = holder.getAdapterPosition();
+                if (adapterPosition != RecyclerView.NO_POSITION && clickListener != null) {
+                    clickListener.onItemClick(adapterPosition);
+                }
+            }
+        });
 
     }
 
