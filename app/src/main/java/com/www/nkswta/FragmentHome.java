@@ -3,6 +3,7 @@ package com.www.nkswta;
 import static android.content.Context.MODE_PRIVATE;
 
 import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AlertDialog;
@@ -37,7 +38,8 @@ public class FragmentHome extends Fragment {
     EditText editableModalEditTitleText,editableModalPriorityEditText,editableModalTypeEditText;
     Button editableCardConfirmButton;
     SeekBar editableCardSeekBar;
-    ModalClass[] MyListData;
+    ModalClass[] tempMyListData;
+    ArrayList<ModalClass> MyListData = new ArrayList<>();
     CustomAdaptor adaptor;
     SharedPreferences sharedPreferences;
     String userName;
@@ -101,38 +103,73 @@ public class FragmentHome extends Fragment {
             user_name.setText("Hi"+" "+userName+"!");
         }
 
-        MyListData = new ModalClass[]{
-                new ModalClass("MT-64","Android","High","Bug",50),
-                new ModalClass("MT-65","Android","High","Bug",10),
-                new ModalClass("MT-66","Android","High","Bug",60),
-                new ModalClass("MT-67","Android","High","Bug",70),
-                new ModalClass("MT-68","Android","High","Bug",80),
-                new ModalClass("MT-69","Android","High","Bug",90),
-                new ModalClass("MT-70","Android","High","Bug",30),
-                new ModalClass("MT-71","Android","High","Bug",40),
-                new ModalClass("MT-72","Android","High","Bug",60),
-                new ModalClass("MT-73","Android","High","Bug",50),
-                new ModalClass("MT-64","Android","High","Bug",50),
-                new ModalClass("MT-65","Android","High","Bug",10),
-                new ModalClass("MT-66","Android","High","Bug",60),
-                new ModalClass("MT-67","Android","High","Bug",70),
-                new ModalClass("MT-68","Android","High","Bug",80),
-                new ModalClass("MT-69","Android","High","Bug",90),
-                new ModalClass("MT-70","Android","High","Bug",30),
-                new ModalClass("MT-71","Android","High","Bug",40),
-                new ModalClass("MT-72","Android","High","Bug",60),
-                new ModalClass("MT-73","Android","High","Bug",50),
-                new ModalClass("MT-64","Android","High","Bug",50),
-                new ModalClass("MT-65","Android","High","Bug",10),
-                new ModalClass("MT-66","Android","High","Bug",60),
-                new ModalClass("MT-67","Android","High","Bug",70),
-                new ModalClass("MT-68","Android","High","Bug",80),
-                new ModalClass("MT-69","Android","High","Bug",90),
-                new ModalClass("MT-70","Android","High","Bug",30),
-                new ModalClass("MT-71","Android","High","Bug",40),
-                new ModalClass("MT-72","Android","High","Bug",60),
-                new ModalClass("MT-73","Android","High","Bug",50),
+        tempMyListData = new ModalClass[]{
+                new ModalClass("MT-1","Android","High","Bug",50),
+                new ModalClass("MT-2","Android","High","Bug",10),
+                new ModalClass("MT-3","Android","High","Bug",100),
+                new ModalClass("MT-4","Android","High","Bug",70),
+                new ModalClass("MT-5","Android","High","Bug",80),
+                new ModalClass("MT-6","Android","High","Bug",90),
+                new ModalClass("MT-7","Android","High","Bug",30),
+                new ModalClass("MT-8","Android","High","Bug",40),
+                new ModalClass("MT-9","Android","High","Bug",60),
+                new ModalClass("MT-10","Android","High","Bug",50),
+                new ModalClass("MT-11","Android","High","Bug",50),
+                new ModalClass("MT-12","Android","High","Bug",10),
+                new ModalClass("MT-14","Android","High","Bug",60),
+                new ModalClass("MT-15","Android","High","Bug",100),
+                new ModalClass("MT-16","Android","High","Bug",80),
+                new ModalClass("MT-17","Android","High","Bug",90),
+                new ModalClass("MT-18","Android","High","Bug",30),
+                new ModalClass("MT-19","Android","High","Bug",40),
+                new ModalClass("MT-20","Android","High","Bug",60),
+                new ModalClass("MT-21","Android","High","Bug",100),
+                new ModalClass("MT-22","Android","High","Bug",50),
+                new ModalClass("MT-23","Android","High","Bug",0),
+                new ModalClass("MT-24","Android","High","Bug",0),
+                new ModalClass("MT-25","Android","High","Bug",70),
+                new ModalClass("MT-26","Android","High","Bug",0),
+                new ModalClass("MT-27","Android","High","Bug",0),
+                new ModalClass("MT-28","Android","High","Bug",0),
+                new ModalClass("MT-29","Android","High","Bug",40),
+                new ModalClass("MT-30","Android","High","Bug",100),
         };
+        taskInformationDataBase = Room.databaseBuilder(
+                getContext(),
+                TaskInformationDataBase.class,
+                "TaskInfoDB"
+        ).allowMainThreadQueries().build();
+        if(sharedPreferences.getBoolean("canStore",true)) {
+            Log.d("TAG", "onCreateView: 1");
+        new AsyncTask<Void, Void, Void>() {
+            @Override
+            protected Void doInBackground(Void... voids) {
+                for (int i = 0; i < tempMyListData.length; i++) {
+                    taskInformationDataBase.getTaskInfoDAO().addTaskInfo(new TaskInfo(
+                            tempMyListData[i].getTaskID(),
+                            tempMyListData[i].getTaskTitle(),
+                            tempMyListData[i].getPriority(),
+                            tempMyListData[i].getTaskType(),
+                            tempMyListData[i].getProgress()));
+                }
+                return null;
+            }
+        }.execute();
+
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putBoolean("canStore",false);
+            editor.commit();
+        }
+
+        for (int i=0; i<taskInformationDataBase.getTaskInfoDAO().getAllTasksInfo().size();i++) {
+            MyListData.add(new ModalClass(taskInformationDataBase.getTaskInfoDAO().getAllTasksInfo().get(i).getTaskID(),
+                    taskInformationDataBase.getTaskInfoDAO().getAllTasksInfo().get(i).getTaskTitle(),
+                    taskInformationDataBase.getTaskInfoDAO().getAllTasksInfo().get(i).getPriority(),
+                    taskInformationDataBase.getTaskInfoDAO().getAllTasksInfo().get(i).getTaskType(),
+                    taskInformationDataBase.getTaskInfoDAO().getAllTasksInfo().get(i).getProgress()));
+        }
+
+        Log.d("TAGDATAbase", "onCreateView: "+taskInformationDataBase.getTaskInfoDAO().getAllTasksInfo().size());
 
         adaptor = new CustomAdaptor(MyListData, new CustomAdaptor.OnItemClickListener(){
             @Override
@@ -140,7 +177,7 @@ public class FragmentHome extends Fragment {
                     // Handle the click event for each card item here
                 Log.d("itemClick", "onItemClick: ");
                 Toast.makeText(getActivity(), "Clicked on item " + (position + 1), Toast.LENGTH_SHORT).show();
-                showAlertDialogButtonClicked(MyListData[position]);
+                showAlertDialogButtonClicked(MyListData.get(position));
             }
         });
         recyclerViewFragmentHome.setHasFixedSize(true);

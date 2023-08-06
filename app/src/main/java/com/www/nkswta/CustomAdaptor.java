@@ -12,8 +12,10 @@ import androidx.annotation.RequiresApi;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.ArrayList;
+
 public class CustomAdaptor extends RecyclerView.Adapter<CustomAdaptor.MyViewHolder> {
-    private ModalClass[] listData;
+    private ArrayList<ModalClass> listData;
     private OnItemClickListener clickListener;
     FragmentHome fragmentHome;
 
@@ -21,7 +23,7 @@ public class CustomAdaptor extends RecyclerView.Adapter<CustomAdaptor.MyViewHold
         void onItemClick(int position);
     }
 
-    public CustomAdaptor(ModalClass[] listData, OnItemClickListener clickListener) {
+    public CustomAdaptor(ArrayList<ModalClass> listData, OnItemClickListener clickListener) {
         this.listData = listData;
         this.clickListener = clickListener;
     }
@@ -58,12 +60,12 @@ public class CustomAdaptor extends RecyclerView.Adapter<CustomAdaptor.MyViewHold
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder,int position) {
-        final ModalClass myListData = listData[position];
-        holder.taskID.setText(listData[position].getTaskID());
-        holder.taskTitle.setText(listData[position].getTaskTitle());
-        holder.priority.setText(listData[position].getPriority());
-        holder.taskType.setText(listData[position].getTaskType());
-        holder.progress.setProgress(listData[position].getProgress(),true);
+        final ModalClass myListData = listData.get(position);
+        holder.taskID.setText(listData.get(position).getTaskID());
+        holder.taskTitle.setText(listData.get(position).getTaskTitle());
+        holder.priority.setText(listData.get(position).getPriority());
+        holder.taskType.setText(listData.get(position).getTaskType());
+        holder.progress.setProgress(listData.get(position).getProgress(),true);
 
         holder.itemCard.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -79,6 +81,6 @@ public class CustomAdaptor extends RecyclerView.Adapter<CustomAdaptor.MyViewHold
 
     @Override
     public int getItemCount() {
-        return listData.length;
+        return listData.size();
     }
 }
