@@ -236,6 +236,7 @@ public class FragmentHome extends Fragment {
                 progress = editableCardSeekBar.getProgress();
                 location = editableCardLocationText.getText().toString();
                 Log.d("info", "onClick: "+taskID+taskTitle+priority+taskType+progress+location);
+                taskInformationDataBase.getTaskInfoDAO().updateTaskInfo(new TaskInfo(taskID,taskTitle,priority,taskType,progress));
                 dialog.dismiss();
             }
         });
